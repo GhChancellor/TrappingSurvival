@@ -7,71 +7,131 @@
 -- https://pzwiki.net/wiki/Trapping
 -- SteamLibrary/steamapps/common/ProjectZomboid/projectzomboid/media/lua/server/Traps/TrapDefinition.lua
 
- ---@class Bait
+---@class Bait
+
+local errHandler = require("lib/ErrHandler")
+local dataValidator = require("lib/DataValidator")
 
 local Bait = {}
 
+---@type int
 local apple
+---@type int
 local baconBits
+---@type int
 local banana
+---@type int
 local bread
+---@type int
 local breadSlices
+---@type int
 local bellPepper
+---@type int
 local cabbage
+---@type int
 local carrots
+---@type int
 local cereal
+---@type int
 local cheese
+---@type int
 local chocolate
+---@type int
 local cockroach
+---@type int
 local corn
+---@type int
 local cricket
+---@type int
 local grasshopper
+---@type int
 local lettuce
+---@type int
 local orange
+---@type int
 local peach
+---@type int
 local peanut_butter
+---@type int
 local peanuts
+---@type int
 local processed_cheese
+---@type int
 local popcorn
+---@type int
 local potato
+---@type int
 local tomato
+---@type int
 local worm
+
 
 --- **Enum Bait**
 Bait.bait = {
+    ---@type string
     APPLE = "Base.Apple",
+    ---@type string
     BACONBITS = "farming.BaconBits",
+    ---@type string
     BANANA = "Base.Banana",
+    ---@type string
     BREAD = "Base.Bread",
+    ---@type string
     BREAD_SLICES = "Base.BreadSlices",
+    ---@type string
     BELL_PEPPER = "Base.BellPepper",
+    ---@type string
     CABBAGE = "farming.Cabbage",
+    ---@type string
     CARROTS = "Base.Carrots",
+    ---@type string
     CEREAL = "Base.Cereal",
+    ---@type string
     CHEESE = "Base.Cheese",
+    ---@type string
     CHOCOLATE = "Base.Chocolate",
+    ---@type string
     COCKROACH = "Base.Cockroach",
+    ---@type string
     CORN = "Base.Corn",
+    ---@type string
     CRICKET = "Base.Cricket",
+    ---@type string
     GRASSHOPPER = "Base.Grasshopper",
+    ---@type string
     LETTUCE = "Base.Lettuce",
+    ---@type string
     ORANGE = "Base.Orange",
+    ---@type string
     PEACH = "Base.Peach",
+    ---@type string
     PEANUT_BUTTER = "Base.PeanutButter",
+    ---@type string
     PEANUTS = "Base.Peanuts",
+    ---@type string
     PROCESSED_CHEESE = "Base.Processedcheese",
+    ---@type string
     POPCORN = "Base.Popcorn",
+    ---@type string
     POTATO = "farming.Potato",
+    ---@type string
     TOMATO = "farming.Tomato",
+    ---@type string
     WORM = "Base.Worm",
 }
 
 --- **Set Apple**
 ---@param apple_ int
+---@return void
 function Bait.setApple(apple_)
-    if apple_ < 0 then
-        print("ERROR : APPLE " .. tostring(apple_))
-        return
+    if not dataValidator.isNumber(apple_) then
+        errHandler.errMsg("Bait.setApple(apple_)",
+                " apple_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif apple_ < 0 then
+        errHandler.errMsg("Bait.setApple(apple_)",
+                " apple_ < 0" )
+        return nil
     end
 
     apple = apple_
@@ -85,10 +145,16 @@ end
 
 --- **Set Bacon Bits**
 ---@param baconBits_ int
+---@return void
 function Bait.setBaconBits(baconBits_)
-    if baconBits_ < 0 then
-        print("ERROR : BACON_BITS " .. tostring(baconBits_))
-        return
+    if not dataValidator.isNumber(baconBits_) then
+        errHandler.errMsg("Bait.setBaconBits(baconBits_)",
+                " baconBits_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif baconBits_ < 0 then
+        errHandler.errMsg("Bait.setBaconBits(baconBits_)",
+                " baconBits_ < 0" )
+        return nil
     end
 
     baconBits = baconBits_
@@ -102,10 +168,16 @@ end
 
 --- **Set Banana**
 ---@param banana_ int
+---@return void
 function Bait.setBanana(banana_)
-    if banana_ < 0 then
-        print("ERROR : BANANA " .. tostring(banana_))
-        return
+    if not dataValidator.isNumber(banana_) then
+        errHandler.errMsg("Bait.setBanana(banana_)",
+                " banana_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif banana_ < 0 then
+        errHandler.errMsg("Bait.setBanana(banana_)",
+                " banana_ < 0" )
+        return nil
     end
 
     banana = banana_
@@ -119,10 +191,16 @@ end
 
 --- **Set Bread**
 ---@param bread_ int
+---@return void
 function Bait.setBread(bread_)
-    if bread_ < 0 then
-        print("ERROR : BREAD " .. tostring(bread_))
-        return
+    if not dataValidator.isNumber(bread_) then
+        errHandler.errMsg("Bait.setBread(bread_)",
+                " bread_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif bread_ < 0 then
+        errHandler.errMsg("Bait.setBread(bread_)",
+                " bread_ < 0" )
+        return nil
     end
 
     bread = bread_
@@ -136,10 +214,16 @@ end
 
 --- **Set Bread Slices**
 ---@param breadSlices_ int
+---@return void
 function Bait.setBreadSlices(breadSlices_)
-    if breadSlices_ < 0 then
-        print("ERROR : BREAD_SLICES " .. tostring(breadSlices_))
-        return
+    if not dataValidator.isNumber(breadSlices_) then
+        errHandler.errMsg("Bait.setBreadSlices(breadSlices_)",
+                " breadSlices_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif breadSlices_ < 0 then
+        errHandler.errMsg("Bait.setBreadSlices(breadSlices_)",
+                " breadSlices_ < 0" )
+        return nil
     end
 
     breadSlices = breadSlices_
@@ -153,10 +237,16 @@ end
 
 --- **Set Bell Pepper**
 ---@param bellPepper_ int
+---@return void
 function Bait.setBellPepper(bellPepper_)
-    if bellPepper_ < 0 then
-        print("ERROR : BELL_PEPPER " .. tostring(bellPepper_))
-        return
+    if not dataValidator.isNumber(bellPepper_) then
+        errHandler.errMsg("Bait.setBellPepper(bellPepper_)",
+                " bellPepper_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif bellPepper_ < 0 then
+        errHandler.errMsg("Bait.setBellPepper(bellPepper_)",
+                " bellPepper_ < 0" )
+        return nil
     end
 
     bellPepper = bellPepper_
@@ -170,10 +260,16 @@ end
 
 --- **Set Cabbage**
 ---@param cabbage_ int
+---@return void
 function Bait.setCabbage(cabbage_)
-    if cabbage_ < 0 then
-        print("ERROR : CABBAGE " .. tostring(cabbage_))
-        return
+    if not dataValidator.isNumber(cabbage_) then
+        errHandler.errMsg("Bait.setCabbage(cabbage_)",
+                " cabbage_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif cabbage_ < 0 then
+        errHandler.errMsg("Bait.setCabbage(cabbage_)",
+                " cabbage_ < 0" )
+        return nil
     end
 
     cabbage = cabbage_
@@ -187,10 +283,16 @@ end
 
 --- **Set Carrots**
 ---@param carrots_ int
+---@return void
 function Bait.setCarrots(carrots_)
-    if carrots_ < 0 then
-        print("ERROR : CARROTS " .. tostring(carrots_))
-        return
+    if not dataValidator.isNumber(carrots_) then
+        errHandler.errMsg("Bait.setCarrots(carrots_)",
+                " carrots_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif carrots_ < 0 then
+        errHandler.errMsg("Bait.setCarrots(carrots_)",
+                " carrots_ < 0" )
+        return nil
     end
 
     carrots = carrots_
@@ -204,10 +306,16 @@ end
 
 --- **Set Cereal**
 ---@param cereal_ int
+---@return void
 function Bait.setCereal(cereal_)
-    if cereal_ < 0 then
-        print("ERROR : CEREAL " .. tostring(cereal_))
-        return
+    if not dataValidator.isNumber(cereal_) then
+        errHandler.errMsg("Bait.setCereal(cereal_)",
+                " cereal_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif cereal_ < 0 then
+        errHandler.errMsg("Bait.setCereal(cereal_)",
+                " cereal_ < 0" )
+        return nil
     end
 
     cereal = cereal_
@@ -221,10 +329,16 @@ end
 
 --- **Set Cheese**
 ---@param cheese_ int
+---@return void
 function Bait.setCheese(cheese_)
-    if cheese_ < 0 then
-        print("ERROR : CHEESE " .. tostring(cheese_))
-        return
+    if not dataValidator.isNumber(cheese_) then
+        errHandler.errMsg("Bait.setCheese(cheese_)",
+                " cheese_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif cheese_ < 0 then
+        errHandler.errMsg("Bait.setCheese(cheese_)",
+                " cheese_ < 0" )
+        return nil
     end
 
     cheese = cheese_
@@ -238,10 +352,16 @@ end
 
 --- **Set Chocolate**
 ---@param chocolate_ int
+---@return void
 function Bait.setChocolate(chocolate_)
-    if chocolate_ < 0 then
-        print("ERROR : CHOCOLATE " .. tostring(chocolate_))
-        return
+    if not dataValidator.isNumber(chocolate_) then
+        errHandler.errMsg("Bait.setChocolate(chocolate_)",
+                " chocolate_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif chocolate_ < 0 then
+        errHandler.errMsg("Bait.setChocolate(chocolate_)",
+                " chocolate_ < 0" )
+        return nil
     end
 
     chocolate = chocolate_
@@ -255,10 +375,16 @@ end
 
 --- **Set Cockroach**
 ---@param cockroach_ int
+---@return void
 function Bait.setCockroach(cockroach_)
-    if cockroach_ < 0 then
-        print("ERROR : COCKROACH " .. tostring(cockroach_))
-        return
+    if not dataValidator.isNumber(cockroach_) then
+        errHandler.errMsg("Bait.setCockroach(cockroach_)",
+                " cockroach_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif cockroach_ < 0 then
+        errHandler.errMsg("Bait.setCockroach(cockroach_)",
+                " cockroach_ < 0" )
+        return nil
     end
 
     cockroach = cockroach_
@@ -272,10 +398,16 @@ end
 
 --- **Set Corn**
 ---@param corn_ int
+---@return void
 function Bait.setCorn(corn_)
-    if corn_ < 0 then
-        print("ERROR : CORN " .. tostring(corn_))
-        return
+    if not dataValidator.isNumber(corn_) then
+        errHandler.errMsg("Bait.setCorn(corn_)",
+                " corn_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif corn_ < 0 then
+        errHandler.errMsg("Bait.setCorn(corn_)",
+                " corn_ < 0" )
+        return nil
     end
 
     corn = corn_
@@ -289,10 +421,16 @@ end
 
 --- **Set Cricket**
 ---@param cricket_ int
+---@return void
 function Bait.setCricket(cricket_)
-    if cricket_ < 0 then
-        print("ERROR : CRICKET " .. tostring(cricket_))
-        return
+    if not dataValidator.isNumber(cricket_) then
+        errHandler.errMsg("Bait.setCricket(cricket_)",
+                " cricket_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif cricket_ < 0 then
+        errHandler.errMsg("Bait.setCricket(cricket_)",
+                " cricket_ < 0" )
+        return nil
     end
 
     cricket = cricket_
@@ -306,10 +444,16 @@ end
 
 --- **Set Grasshopper**
 ---@param grasshopper_ int
+---@return void
 function Bait.setGrasshopper(grasshopper_)
-    if grasshopper_ < 0 then
-        print("ERROR : GRASSHOPPER " .. tostring(grasshopper_))
-        return
+    if not dataValidator.isNumber(grasshopper_) then
+        errHandler.errMsg("Bait.setGrasshopper(grasshopper_)",
+                " grasshopper_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif grasshopper_ < 0 then
+        errHandler.errMsg("Bait.setGrasshopper(grasshopper_)",
+                " grasshopper_ < 0" )
+        return nil
     end
 
     grasshopper = grasshopper_
@@ -323,10 +467,16 @@ end
 
 --- **Set Lettuce**
 ---@param lettuce_ int
+---@return void
 function Bait.setLettuce(lettuce_)
-    if lettuce_ < 0 then
-        print("ERROR : LETTUCE " .. tostring(lettuce_))
-        return
+    if not dataValidator.isNumber(lettuce_) then
+        errHandler.errMsg("Bait.setLettuce(lettuce_)",
+                " lettuce_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif lettuce_ < 0 then
+        errHandler.errMsg("Bait.setLettuce(lettuce_)",
+                " lettuce_ < 0" )
+        return nil
     end
 
     lettuce = lettuce_
@@ -340,10 +490,16 @@ end
 
 --- **Set Orange**
 ---@param orange_ int
+---@return void
 function Bait.setOrange(orange_)
-    if orange_ < 0 then
-        print("ERROR : ORANGE " .. tostring(orange_))
-        return
+    if not dataValidator.isNumber(orange_) then
+        errHandler.errMsg("Bait.setOrange(orange_)",
+                " orange_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif orange_ < 0 then
+        errHandler.errMsg("Bait.setOrange(orange_)",
+                " orange_ < 0" )
+        return nil
     end
 
     orange = orange_
@@ -357,10 +513,16 @@ end
 
 --- **Set Peach**
 ---@param peach_ int
+---@return void
 function Bait.setPeach(peach_)
-    if peach_ < 0 then
-        print("ERROR : PEACH " .. tostring(peach_))
-        return
+    if not dataValidator.isNumber(peach_) then
+        errHandler.errMsg("Bait.setPeach(peach_)",
+                " peach_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif peach_ < 0 then
+        errHandler.errMsg("Bait.setPeach(peach_)",
+                " peach_ < 0" )
+        return nil
     end
 
     peach = peach_
@@ -372,13 +534,18 @@ function Bait.getPeach()
     return peach
 end
 
-
 --- **Set Peanut Butter**
 ---@param peanutButter_ int
+---@return void
 function Bait.setPeanutButter(peanutButter_)
-    if peanutButter_ < 0 then
-        print("ERROR : PEANUTBUTTER " .. tostring(peanutButter_))
-        return
+    if not dataValidator.isNumber(peanutButter_) then
+        errHandler.errMsg("Bait.setPeanutButter(peanutButter_)",
+                " peanutButter_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif peanutButter_ < 0 then
+        errHandler.errMsg("Bait.setPeanutButter(peanutButter_)",
+                " peanutButter_ < 0" )
+        return nil
     end
 
     peanut_butter = peanutButter_
@@ -392,10 +559,16 @@ end
 
 --- **Set Peanuts**
 ---@param peanuts_ int
+---@return void
 function Bait.setPeanuts(peanuts_)
-    if peanuts_ < 0 then
-        print("ERROR : PEANUTS " .. tostring(peanuts_))
-        return
+    if not dataValidator.isNumber(peanuts_) then
+        errHandler.errMsg("Bait.setPeanuts(peanuts_)",
+                " peanuts_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif peanuts_ < 0 then
+        errHandler.errMsg("Bait.setPeanuts(peanuts_)",
+                " peanuts_ < 0" )
+        return nil
     end
 
     peanuts = peanuts_
@@ -409,10 +582,16 @@ end
 
 --- **Set Processed Cheese**
 ---@param processedCheese_ int
+---@return void
 function Bait.setProcessedCheese(processedCheese_)
-    if processedCheese_ < 0 then
-        print("ERROR : PROCESSED_CHEESE " .. tostring(processedCheese_))
-        return
+    if not dataValidator.isNumber(processedCheese_) then
+        errHandler.errMsg("Bait.setProcessedCheese(processedCheese_)",
+                " processedCheese_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif processedCheese_ < 0 then
+        errHandler.errMsg("Bait.setProcessedCheese(processedCheese_)",
+                " processedCheese_ < 0" )
+        return nil
     end
 
     processed_cheese = processedCheese_
@@ -426,10 +605,16 @@ end
 
 --- **Set Popcorn**
 ---@param popcorn_ int
+---@return void
 function Bait.setPopcorn(popcorn_)
-    if popcorn_ < 0 then
-        print("ERROR : POPCORN " .. tostring(popcorn_))
-        return
+    if not dataValidator.isNumber(popcorn_) then
+        errHandler.errMsg("Bait.setPopcorn(popcorn_)",
+                " popcorn_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif popcorn_ < 0 then
+        errHandler.errMsg("Bait.setPopcorn(popcorn_)",
+                " popcorn_ < 0" )
+        return nil
     end
 
     popcorn = popcorn_
@@ -443,10 +628,16 @@ end
 
 --- **Set Potato**
 ---@param potato_ int
+---@return void
 function Bait.setPotato(potato_)
-    if potato_ < 0 then
-        print("ERROR : POTATO " .. tostring(potato_))
-        return
+    if not dataValidator.isNumber(potato_) then
+        errHandler.errMsg("Bait.setPotato(potato_)",
+                " potato_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif potato_ < 0 then
+        errHandler.errMsg("Bait.setPotato(potato_)",
+                " potato_ < 0" )
+        return nil
     end
 
     potato = potato_
@@ -460,10 +651,16 @@ end
 
 --- **Set Tomato**
 ---@param tomato_ int
+---@return void
 function Bait.setTomato(tomato_)
-    if tomato_ < 0 then
-        print("ERROR : TOMATO " .. tostring(tomato_))
-        return
+    if not dataValidator.isNumber(tomato_) then
+        errHandler.errMsg("Bait.setTomato(tomato_)",
+                " tomato_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif tomato_ < 0 then
+        errHandler.errMsg("Bait.setTomato(tomato_)",
+                " tomato_ < 0" )
+        return nil
     end
 
     tomato = tomato_
@@ -477,10 +674,16 @@ end
 
 --- **Set Worm**
 ---@param worm_ int
+---@return void
 function Bait.setWorm(worm_)
-    if worm_ < 0 then
-        print("ERROR : WORM " .. tostring(worm_))
-        return
+    if not dataValidator.isNumber(worm_) then
+        errHandler.errMsg("Bait.setWorm(worm_)",
+                " worm_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif worm_ < 0 then
+        errHandler.errMsg("Bait.setWorm(worm_)",
+                " worm_ < 0" )
+        return nil
     end
 
     worm = worm_

@@ -1,18 +1,41 @@
 Sandbox_EN = {
-	Sandbox_TrappingSurvival = "Trapping Survival",
+    Sandbox_TrappingSurvival = "Trapping Survival",
 
-    Sandbox_TrappingSurvival_Bird = "Possibility of Capture Bird",
+    Sandbox_TrappingSurvival_Bird = "Possibility of Capture Bird (Vanilla 1)",
     Sandbox_TrappingSurvival_Bird_tooltip = "Lower values = lower chance of capture, higher values = higher chance of capture",
 
-    Sandbox_TrappingSurvival_Mouse = "Possibility of Capture Mouse",
+    Sandbox_TrappingSurvival_BirdSize = "Change value nutrition (Vanilla 1)",
+    Sandbox_TrappingSurvival_BirdSize_tooltip = "Lower values = lower value nutrition, higher values = higher value nutrition",
+
+
+
+    Sandbox_TrappingSurvival_Mouse = "Possibility of Capture Mouse (Vanilla 1)",
     Sandbox_TrappingSurvival_Mouse_tooltip = "Lower values = lower chance of capture, higher values = higher chance of capture",
 
-    Sandbox_TrappingSurvival_Rabbit = "Possibility of Capture Rabbit",
+    Sandbox_TrappingSurvival_MouseSize = "Change value nutrition (Vanilla 1)",
+    Sandbox_TrappingSurvival_MouseSize_tooltip = "Lower values = lower value nutrition, higher values = higher value nutrition",
+
+
+
+    Sandbox_TrappingSurvival_Rabbit = "Possibility of Capture Rabbit (Vanilla 1)",
     Sandbox_TrappingSurvival_Rabbit_tooltip = "Lower values = lower chance of capture, higher values = higher chance of capture",
 
-    Sandbox_TrappingSurvival_Rat = "Possibility of Capture Rat",
+    Sandbox_TrappingSurvival_RabbitSize = "Change value nutrition (Vanilla 1)",
+    Sandbox_TrappingSurvival_RabbitSize_tooltip = "Lower values = lower value nutrition, higher values = higher value nutrition",
+
+
+
+    Sandbox_TrappingSurvival_Rat = "Possibility of Capture Rat (Vanilla 1)",
     Sandbox_TrappingSurvival_Rat_tooltip = "Lower values = lower chance of capture, higher values = higher chance of capture",
 
-    Sandbox_TrappingSurvival_Squirrel = "Possibility of Capture Squirrel",
+    Sandbox_TrappingSurvival_RatSize = "Change value nutrition (Vanilla 1)",
+    Sandbox_TrappingSurvival_RatSize_tooltip = "Lower values = lower chance of capture, higher values = higher chance of capture",
+
+
+
+    Sandbox_TrappingSurvival_Squirrel = "Possibility of Capture Squirrel (Vanilla 1)",
     Sandbox_TrappingSurvival_Squirrel_tooltip = "Lower values = lower chance of capture, higher values = higher chance of capture",
+
+    Sandbox_TrappingSurvival_SquirrelSize = "Change value nutrition (Vanilla 1)",
+    Sandbox_TrappingSurvival_SquirrelSize_tooltip = "Lower values = lower value nutrition, higher values = higher value nutrition",
 }

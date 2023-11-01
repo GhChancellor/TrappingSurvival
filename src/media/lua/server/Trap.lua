@@ -9,31 +9,53 @@
 
 ---@class Trap
 
+local errHandler = require("lib/ErrHandler")
+local dataValidator = require("lib/DataValidator")
+
+---@type Trap
 local Trap = {}
 
+---@type int
 local trapBox
+---@type int
 local trapCage
+---@type int
 local trapCrate
+---@type int
 local trapMouse
+---@type int
 local trapSnare
+---@type int
 local trapStick
 
 --- **Enum Trap**
 Trap.trap = {
+    ---@type string
     BOX = "Base.TrapBox",
+    ---@type string
     CAGE = "Base.TrapCage",
+    ---@type string
     CRATE = "Base.TrapCrate",
+    ---@type string
     MOUSE = "Base.TrapMouse",
+    ---@type string
     SNARE = "Base.TrapSnare",
+    ---@type string
     TRAP_STICK = "Base.TrapStick"
 }
 
 --- **Set Trap Box**
 ---@param trapBox_ int
+---@return void
 function Trap.setTrapBox(trapBox_)
-    if trapBox_ < 0 then
-        print("ERROR : TRAP_BOX " .. tostring(trapBox_))
-        return
+    if not dataValidator.isNumber(trapBox_) then
+        errHandler.errMsg("Trap.setTrapBox(trapBox_)",
+                " trapBox_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trapBox_ < 0 then
+        errHandler.errMsg("Trap.setTrapBox(trapBox_)",
+                " trapBox_ < 0" )
+        return nil
     end
 
     trapBox = trapBox_
@@ -47,10 +69,16 @@ end
 
 --- **Set Trap Cage**
 ---@param trapCage_ int
+---@return void
 function Trap.setTrapCage(trapCage_)
-    if trapCage_ < 0 then
-        print("ERROR : TRAP_CAGE " .. tostring(trapCage_))
-        return
+    if not dataValidator.isNumber(trapCage_) then
+        errHandler.errMsg("Trap.setTrapCage(trapCage_)",
+                " trapCage_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trapCage_ < 0 then
+        errHandler.errMsg("Trap.setTrapCage(trapCage_)",
+                " trapCage_ < 0" )
+        return nil
     end
 
     trapCage = trapCage_
@@ -64,10 +92,16 @@ end
 
 --- **Set Trap Crate**
 ---@param trapCrate_ int
+---@return void
 function Trap.setTrapCrate(trapCrate_)
-    if trapCrate_ < 0 then
-        print("ERROR : TRAP_CRATE " .. tostring(trapCrate_))
-        return
+    if not dataValidator.isNumber(trapCrate_) then
+        errHandler.errMsg("Trap.setTrapCrate(trapCrate_)",
+                " trapCrate_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trapCrate_ < 0 then
+        errHandler.errMsg("Trap.setTrapCrate(trapCrate_)",
+                " trapCrate_ < 0" )
+        return nil
     end
 
     trapCrate = trapCrate_
@@ -81,10 +115,16 @@ end
 
 --- **Set Trap Mouse**
 ---@param trapMouse_ int
+---@return void
 function Trap.setTrapMouse(trapMouse_)
-    if trapMouse_ < 0 then
-        print("ERROR : TRAP_MOUSE " .. tostring(trapMouse_))
-        return
+    if not dataValidator.isNumber(trapMouse_) then
+        errHandler.errMsg("Trap.setTrapMouse(trapMouse_)",
+                " trapMouse_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trapMouse_ < 0 then
+        errHandler.errMsg("Trap.setTrapMouse(trapMouse_)",
+                " trapMouse_ < 0" )
+        return nil
     end
 
     trapMouse = trapMouse_
@@ -96,14 +136,18 @@ function Trap.getTrapMouse()
     return trapMouse
 end
 
-
-
 --- **Set Trap Snare**
 ---@param trapSnare_ int
+---@return void
 function Trap.setTrapSnare(trapSnare_)
-    if trapSnare_ < 0 then
-        print("ERROR : TRAP_SNARE " .. tostring(trapSnare_))
-        return
+    if not dataValidator.isNumber(trapSnare_) then
+        errHandler.errMsg("Trap.setTrapSnare(trapSnare_)",
+                " trapSnare_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trapSnare_ < 0 then
+        errHandler.errMsg("Trap.setTrapSnare(trapSnare_)",
+                " trapSnare_ < 0" )
+        return nil
     end
 
     trapSnare = trapSnare_
@@ -117,10 +161,16 @@ end
 
 --- **Set Trap Stick**
 ---@param trapStick_ int
+---@return void
 function Trap.setTrapStick(trapStick_)
-    if trapStick_ < 0 then
-        print("ERROR : TRAP_STICK " .. tostring(trapStick_))
-        return
+    if not dataValidator.isNumber(trapStick_) then
+        errHandler.errMsg("Trap.setTrapStick(trapStick_)",
+                " trapStick_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trapStick_ < 0 then
+        errHandler.errMsg("Trap.setTrapStick(trapStick_)",
+                " trapStick_ < 0" )
+        return nil
     end
 
     trapStick = trapStick_

@@ -1,0 +1,42 @@
+Sandbox_IT = {
+    Sandbox_TrappingSurvival = "Trapping Survival",
+
+    Sandbox_TrappingSurvival_Bird = "Possibilità di catturare l'uccello (Vanilla 1)",
+    Sandbox_TrappingSurvival_Bird_tooltip = "Valori più bassi = possibilità di cattura più basse, valori più alti = possibilità di cattura più alte",
+
+    Sandbox_TrappingSurvival_BirdSize = "Modifica il valore nutrizionale (Vanilla 1)",
+    Sandbox_TrappingSurvival_BirdSize_tooltip = "Valori più bassi = valore nutrizionale più basso, valori più alti = valore nutrizionale più alto",
+
+
+
+    Sandbox_TrappingSurvival_Mouse = "Possibilità di catturare il topo (Vanilla 1)",
+    Sandbox_TrappingSurvival_Mouse_tooltip = "Valori più bassi = possibilità di cattura più basse, valori più alti = possibilità di cattura più alte",
+
+    Sandbox_TrappingSurvival_MouseSize = "Modifica il valore nutrizionale (Vanilla 1)",
+    Sandbox_TrappingSurvival_MouseSize_tooltip = "Valori più bassi = valore nutrizionale più basso, valori più alti = valore nutrizionale più alto",
+
+
+
+    Sandbox_TrappingSurvival_Rabbit = "Possibilità di catturare il coniglio (Vanilla 1)",
+    Sandbox_TrappingSurvival_Rabbit_tooltip = "Valori più bassi = possibilità di cattura più basse, valori più alti = possibilità di cattura più alte",
+
+    Sandbox_TrappingSurvival_RabbitSize = "Modifica il valore nutrizionale (Vanilla 1)",
+    Sandbox_TrappingSurvival_RabbitSize_tooltip = "Valori più bassi = valore nutrizionale più basso, valori più alti = valore nutrizionale più alto",
+
+
+
+    Sandbox_TrappingSurvival_Rat = "Possibilità di catturare il ratto (Vanilla 1)",
+    Sandbox_TrappingSurvival_Rat_tooltip = "Valori più bassi = possibilità di cattura più basse, valori più alti = possibilità di cattura più alte",
+
+    Sandbox_TrappingSurvival_RatSize = "Modifica il valore nutrizionale (Vanilla 1)",
+    Sandbox_TrappingSurvival_RatSize_tooltip = "Valori più bassi = valore nutrizionale più basso, valori più alti = valore nutrizionale più alto",
+
+
+
+    Sandbox_TrappingSurvival_Squirrel = "Possibilità di catturare lo scoiattolo (Vanilla 1)",
+    Sandbox_TrappingSurvival_Squirrel_tooltip = "Valori più bassi = possibilità di cattura più basse, valori più alti = possibilità di cattura più alte",
+
+    Sandbox_TrappingSurvival_SquirrelSize = "Modifica il valore nutrizionale (Vanilla 1)",
+    Sandbox_TrappingSurvival_SquirrelSize_tooltip = "Valori più bassi = valore nutrizionale più basso, valori più alti = valore nutrizionale più alto",
+
+}

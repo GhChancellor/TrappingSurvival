@@ -12,6 +12,10 @@
 --- ---------------------- Start Squirrel Default values -------------------------------
 
 local creatureFactory = require("CreatureFactory")
+local dataValidator = require("lib/DataValidator")
+local errHandler = require("lib/ErrHandler")
+
+
 local squirrel = {}
 
 local trap = require("Trap")
@@ -19,91 +23,143 @@ local bait = require("Bait")
 local zone = require("Zone")
 
 --                  ** BAIT **
-
+---@type int
 local apple = 40
+---@type int
 local bellPepper = 30
+---@type int
 local cereal = 45
+---@type int
 local corn = 40
+---@type int
 local orange = 40
+---@type int
 local lettuce = 40
+---@type int
 local peach = 35
+---@type int
 local peanutButter = 45
+---@type int
 local peanuts = 40
+---@type int
 local popcorn = 40
 
 --                  ** ZONE **
+---@type int
 local deepForest = 15
+---@type int
 local forest = 12
+---@type int
 local townZone = 2
+---@type int
 local trailerPark = 2
+---@type int
 local vegetation = 10
 
 --                  ** TRAP **
+---@type int
 local trapBox = 25
+---@type int
 local trapCage = 40
+---@type int
 local trapCrate = 30
+---@type int
 local trapSnare = 30
 
 --                  ** ANIMALS **
--- Type of animal
+--- **Type of animal**
+---@type string
 local type = "squirrel"
 
--- after how many hour the animal will start to destroy the cage/escape
+--- **After how many hour the animal will start to destroy the cage/escape**
+---@type int
 local strength = 24
 
--- item given to the player
+--- **Item given to the player**
+---@type string
 local item = "Base.DeadSquirrel"
 
--- hour this animal will be out and when you can catch it
+--- **Hour this animal will be out and when you can catch it**
+---@type int
 local minHour = 18
+--- **Hour this animal will be out and when you can catch it**
+---@type int
 local maxHour = 8
 
--- min and max "size" (understand hunger reduction) of the animal
-local minSize = 30
-local maxSize = 100
+--- **Min and max "size" (understand hunger reduction) of the animal**
+---@type int
+local minSizePrey = 30
+
+--- **Min and max "size" (understand hunger reduction) of the animal**
+---@type int
+local maxSizePrey = 100
 
 --- ---------------------- Set Multiplier -------------------
 
 --- **Set Bait Multiplier**
----@param multiplier int
-local function setBaitMultiplier(multiplier)
-    bait.setApple(apple * multiplier)
-    bait.setBellPepper(bellPepper * multiplier)
-    bait.setCereal(cereal * multiplier)
-    bait.setCorn(corn * multiplier)
-    bait.setOrange(orange * multiplier)
-    bait.setLettuce(lettuce * multiplier)
-    bait.setPeach(peach * multiplier)
-    bait.setPeanutButter(peanutButter * multiplier)
-    bait.setPeanuts(peanuts * multiplier)
-    bait.setPopcorn(popcorn * multiplier)
+---@param multiplierPrey int
+local function setBaitMultiplier(multiplierPrey)
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Squirrel - setBaitMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    bait.setApple(apple * multiplierPrey)
+    bait.setBellPepper(bellPepper * multiplierPrey)
+    bait.setCereal(cereal * multiplierPrey)
+    bait.setCorn(corn * multiplierPrey)
+    bait.setOrange(orange * multiplierPrey)
+    bait.setLettuce(lettuce * multiplierPrey)
+    bait.setPeach(peach * multiplierPrey)
+    bait.setPeanutButter(peanutButter * multiplierPrey)
+    bait.setPeanuts(peanuts * multiplierPrey)
+    bait.setPopcorn(popcorn * multiplierPrey)
 end
 
 --- **Set Trap Multiplier**
----@param multiplier int
-local function setTrapMultiplier(multiplier)
-    trap.setTrapBox(trapBox * multiplier)
-    trap.setTrapCage(trapCage * multiplier)
-    trap.setTrapCrate(trapCrate * multiplier)
-    trap.setTrapSnare(trapSnare * multiplier)
+---@param multiplierPrey int
+local function setTrapMultiplier(multiplierPrey)
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Squirrel - setTrapMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    trap.setTrapBox(trapBox * multiplierPrey)
+    trap.setTrapCage(trapCage * multiplierPrey)
+    trap.setTrapCrate(trapCrate * multiplierPrey)
+    trap.setTrapSnare(trapSnare * multiplierPrey)
 end
 
 --- **Set Zone Multiplier**
----@param multiplier int
-local function setZoneMultiplier(multiplier)
-    zone.setDeepForest( deepForest * multiplier)
-    zone.setForest(forest * multiplier)
-    zone.setTownZone(townZone * multiplier)
-    zone.setTrailerPark(trailerPark * multiplier)
-    zone.setVegetation(vegetation * multiplier)
+---@param multiplierPrey int
+local function setZoneMultiplier(multiplierPrey)
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Squirrel - setZoneMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    zone.setDeepForest( deepForest * multiplierPrey)
+    zone.setForest(forest * multiplierPrey)
+    zone.setTownZone(townZone * multiplierPrey)
+    zone.setTrailerPark(trailerPark * multiplierPrey)
+    zone.setVegetation(vegetation * multiplierPrey)
 end
 
 --- **Set "size" Multiplier**
 --- Min and max "size" (understand hunger reduction) of the animal
----@param multiplier int
-local function setSizeAnimalMultiplier(multiplier)
-    squirrel.minSize = minSize * multiplier;
-    squirrel.maxSize = maxSize * multiplier;
+---@param multiplierPreySize int
+local function setSizeAnimalMultiplier(multiplierPreySize)
+    if not  dataValidator.isNumber(multiplierPreySize) then
+        errHandler.errMsg("Squirrel - setSizeAnimalMultiplier(multiplierPreySize)",
+                "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    squirrel.minSize = minSizePrey * multiplierPreySize;
+    squirrel.maxSize = maxSizePrey * multiplierPreySize;
 end
 
 --- ---------------------- Start init Bait -------------------
@@ -141,14 +197,28 @@ end
 
 --- **Init**
 local function init()
-    local multiplier = SandboxVars.TrappingSurvival.Squirrel
-    squirrel = creatureFactory.creature(type, strength, item, maxSize, minSize, minHour, maxHour)
+    ---@type int
+    local multiplierPrey = SandboxVars.TrappingSurvival.Squirrel
+    ---@type int
+    local multiplierPreySize = SandboxVars.TrappingSurvival.SquirrelSize
+
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Squirrel - init()",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    elseif not dataValidator.isNumber(multiplierPreySize) then
+        errHandler.errMsg("Squirrel - init()",
+                "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    squirrel = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
 
     --                  ** MULTIPLIER **
-    setBaitMultiplier(multiplier)
-    setTrapMultiplier(multiplier)
-    setZoneMultiplier(multiplier)
-    -- setSizeAnimalMultiplier(multiplier)
+    setBaitMultiplier(multiplierPrey)
+    setTrapMultiplier(multiplierPrey)
+    setZoneMultiplier(multiplierPrey)
+    setSizeAnimalMultiplier(multiplierPreySize)
 
     --                  ** Init bait/trap/zone **
     initBait()

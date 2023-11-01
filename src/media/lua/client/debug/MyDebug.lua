@@ -12,14 +12,23 @@ local function key34(character, key)
 
         print("Bird")
         print(SandboxVars.TrappingSurvival.Bird)  -- SandboxVars.TrappingSurvival.Bird
+        print(SandboxVars.TrappingSurvival.BirdSize)  -- SandboxVars.TrappingSurvival.Bird
+
         print("Mouse")
         print(SandboxVars.TrappingSurvival.Mouse)  -- SandboxVars.TrappingSurvival.Mouse
+        print(SandboxVars.TrappingSurvival.MouseSize)  -- SandboxVars.TrappingSurvival.Mouse
+
         print("Rabbit")
         print(SandboxVars.TrappingSurvival.Rabbit)  -- SandboxVars.TrappingSurvival.Rabbit
+        print(SandboxVars.TrappingSurvival.RabbitSize)  -- SandboxVars.TrappingSurvival.Rabbit
+        --
         print("Rat")
         print(SandboxVars.TrappingSurvival.Rat)  -- SandboxVars.TrappingSurvival.Rat
+        print(SandboxVars.TrappingSurvival.RatSize)  -- SandboxVars.TrappingSurvival.Rat
+
         print("Squirrel")
         print(SandboxVars.TrappingSurvival.Squirrel)  -- SandboxVars.TrappingSurvival.Squirrel
+        print(SandboxVars.TrappingSurvival.SquirrelSize)  -- SandboxVars.TrappingSurvival.Squirrel
         print("-------------------------")
     end
 end
@@ -92,4 +101,4 @@ local function OnGameStart()
 end
 
 -- Events.OnGameStart.Add(OnGameStart)
--- Events.OnCustomUIKeyPressed.Add(onCustomUIKeyPressed)
+Events.OnCustomUIKeyPressed.Add(onCustomUIKeyPressed)

@@ -10,6 +10,10 @@
 ---@class Bird
 
 local creatureFactory = require("CreatureFactory")
+local dataValidator = require("lib/DataValidator")
+local errHandler = require("lib/ErrHandler")
+
+---@type table
 local bird = {}
 
 local trap = require("Trap")
@@ -19,88 +23,144 @@ local zone = require("Zone")
 --- ---------------------- Start Bird Default values -------------------------------
 
 --                  ** BAIT **
-
+---@type int
 local bread = 50
+---@type int
 local breadSlices = 50
+---@type int
 local cereal = 45
+---@type int
 local cockroach = 50
+---@type int
 local corn = 45
+---@type int
 local cricket = 50
+---@type int
 local grasshopper = 50
+---@type int
 local worm = 50
 
+
 --                  ** ZONE **
+---@type int
 local deepForest = 20
+---@type int
 local farmLand = 35
+---@type int
 local forest = 20
+---@type int
 local townZone = 30
+---@type int
 local trailerPark = 20
+---@type int
 local vegetation = 30
 
+
 --                  ** TRAP **
+---@type int
 local trapStick = 40
 
 --                  ** ANIMALS **
--- Type of animal
+--- **Type of animal**
+---@type int
 local type = "bird"
 
--- after how many hour the animal will start to destroy the cage/escape
+--- **After how many hour the animal will start to destroy the cage/escape**
+---@type int
 local strength = 24
 
--- item given to the player
+--- **Item given to the player**
+---@type string
 local item = "Base.DeadBird"
 
--- hour this animal will be out and when you can catch it
+--- **Hour this animal will be out and when you can catch it**
+---@type int
 local minHour = 0
+
+--- **Hour this animal will be out and when you can catch it**
+---@type int
 local maxHour = 0
 
--- min and max "size" (understand hunger reduction) of the animal
-local minSize = 2
-local maxSize = 32
+--- **Min and max "size" (understand hunger reduction) of the animal**
+---@type int
+local minSizePrey = 2
+
+--- **Min and max "size" (understand hunger reduction) of the animal**
+---@type int
+local maxSizePrey = 32
 
 --- ---------------------- Set Multiplier -------------------
 
 --- **Set Bait Multiplier**
----@param multiplier int
-local function setBaitMultiplier(multiplier)
-    bait.setBread( bread * multiplier)
-    bait.setBreadSlices( breadSlices * multiplier)
-    bait.setCereal( cereal * multiplier)
-    bait.setCockroach( cockroach * multiplier)
-    bait.setCorn( corn * multiplier)
-    bait.setCricket( cricket * multiplier)
-    bait.setGrasshopper( grasshopper * multiplier)
-    bait.setWorm( worm * multiplier)
+---@param multiplierPrey int
+---@return void
+local function setBaitMultiplier(multiplierPrey)
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Bird - setBaitMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    bait.setBread( bread * multiplierPrey)
+    bait.setBreadSlices( breadSlices * multiplierPrey)
+    bait.setCereal( cereal * multiplierPrey)
+    bait.setCockroach( cockroach * multiplierPrey)
+    bait.setCorn( corn * multiplierPrey)
+    bait.setCricket( cricket * multiplierPrey)
+    bait.setGrasshopper( grasshopper * multiplierPrey)
+    bait.setWorm( worm * multiplierPrey)
 end
 
 --- **Set Trap Multiplier**
----@param multiplier int
-local function setTrapMultiplier(multiplier)
-    trap.setTrapStick( trapStick * multiplier)
+---@param multiplierPrey int
+---@return void
+local function setTrapMultiplier(multiplierPrey)
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Bird - setTrapMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    trap.setTrapStick( trapStick * multiplierPrey)
 end
 
 --- **Set Zone Multiplier**
----@param multiplier int
-local function setZoneMultiplier(multiplier)
-    zone.setDeepForest( deepForest * multiplier)
-    zone.setFarmLand(farmLand * multiplier)
-    zone.setForest(forest * multiplier)
-    zone.setTownZone(townZone * multiplier)
-    zone.setTrailerPark(trailerPark * multiplier)
-    zone.setVegetation(vegetation * multiplier)
+---@param multiplierPrey int
+---@return void
+local function setZoneMultiplier(multiplierPrey)
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Bird - setZoneMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    zone.setDeepForest( deepForest * multiplierPrey)
+    zone.setFarmLand(farmLand * multiplierPrey)
+    zone.setForest(forest * multiplierPrey)
+    zone.setTownZone(townZone * multiplierPrey)
+    zone.setTrailerPark(trailerPark * multiplierPrey)
+    zone.setVegetation(vegetation * multiplierPrey)
 end
 
 --- **Set "size" Multiplier**
---- Min and max "size" (understand hunger reduction) of the animal
----@param multiplier int
-local function setSizeAnimalMultiplier(multiplier)
-    bird.minSize = minSize * multiplier;
-    bird.maxSize = maxSize * multiplier;
+--- - Min and max "size" (understand hunger reduction) of the animal
+---@param multiplierPreySize int
+---@return void
+local function setSizeAnimalMultiplier(multiplierPreySize)
+    if not dataValidator.isNumber(multiplierPreySize) then
+        errHandler.errMsg("Bird - setSizeAnimalMultiplier(multiplierPreySize)",
+                "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    bird.minSize = minSizePrey * multiplierPreySize;
+    bird.maxSize = maxSizePrey * multiplierPreySize;
 end
 
 --- ---------------------- Start init Bait -------------------
 
 --- **Init Bait**
+---@type void
 local function initBait()
     creatureFactory.createBait(bird, bait.bait.BREAD, bait.getBread())
     creatureFactory.createBait(bird, bait.bait.BREAD_SLICES, bait.getBreadSlices())
@@ -113,11 +173,13 @@ local function initBait()
 end
 
 --- **Init Trap**
+---@type void
 local function initTrap()
     creatureFactory.createTrap(bird, trap.trap.TRAP_STICK, trap.getTrapStick())
 end
 
 --- **Init Zone**
+---@type void
 local function initZone()
     creatureFactory.createZone(bird, zone.zone.DEEP_FOREST, zone.getDeepForest())
     creatureFactory.createZone(bird, zone.zone.FARM_LAND, zone.getFarmLand())
@@ -128,15 +190,31 @@ local function initZone()
 end
 
 --- **Init**
+---@type void
 local function init()
-    local multiplier = SandboxVars.TrappingSurvival.Bird
-    bird = creatureFactory.creature(type, strength, item, maxSize, minSize, minHour, maxHour)
+    ---@type int
+    local multiplierPrey = SandboxVars.TrappingSurvival.Bird
+
+    ---@type int
+    local multiplierPreySize = SandboxVars.TrappingSurvival.BirdSize
+
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Bird - init()",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+            return nil
+    elseif not dataValidator.isNumber(multiplierPreySize) then
+            errHandler.errMsg("Bird - init()",
+                    "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    bird = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
 
     --                  ** MULTIPLIER **
-    setBaitMultiplier(multiplier)
-    setTrapMultiplier(multiplier)
-    setZoneMultiplier(multiplier)
-    -- setSizeAnimalMultiplier(multiplier)
+    setBaitMultiplier(multiplierPrey)
+    setTrapMultiplier(multiplierPrey)
+    setZoneMultiplier(multiplierPrey)
+    setSizeAnimalMultiplier(multiplierPreySize)
 
     initBait()
     initTrap()

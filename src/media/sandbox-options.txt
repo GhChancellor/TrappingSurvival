@@ -2,55 +2,113 @@ VERSION = 1,
 
 option TrappingSurvival.Bird
 {
-	type = double,
-	min = 0,
-	max = 2,
-	default = 1,
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
 
-	page = TrappingSurvival,
-	translation = TrappingSurvival_Bird,
+    page = TrappingSurvival,
+    translation = TrappingSurvival_Bird,
+}
+
+option TrappingSurvival.BirdSize
+{
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
+
+    page = TrappingSurvival,
+    translation = TrappingSurvival_BirdSize,
 }
 
 option TrappingSurvival.Mouse
 {
-	type = double,
-	min = 0,
-	max = 2,
-	default = 1,
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
 
-	page = TrappingSurvival,
-	translation = TrappingSurvival_Mouse,
+    page = TrappingSurvival,
+    translation = TrappingSurvival_Mouse,
+}
+
+option TrappingSurvival.MouseSize
+{
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
+
+    page = TrappingSurvival,
+    translation = TrappingSurvival_MouseSize,
 }
 
 option TrappingSurvival.Rabbit
 {
-	type = double,
-	min = 0,
-	max = 2,
-	default = 1,
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
 
-	page = TrappingSurvival,
-	translation = TrappingSurvival_Rabbit,
+    page = TrappingSurvival,
+    translation = TrappingSurvival_Rabbit,
 }
+
+option TrappingSurvival.RabbitSize
+{
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
+
+    page = TrappingSurvival,
+    translation = TrappingSurvival_RabbitSize,
+}
+
 
 option TrappingSurvival.Rat
 {
-	type = double,
-	min = 0,
-	max = 2,
-	default = 1,
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
 
-	page = TrappingSurvival,
-	translation = TrappingSurvival_Rat,
+    page = TrappingSurvival,
+    translation = TrappingSurvival_Rat,
 }
+
+
+option TrappingSurvival.RatSize
+{
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
+
+    page = TrappingSurvival,
+    translation = TrappingSurvival_RatSize,
+}
+
 
 option TrappingSurvival.Squirrel
 {
-	type = double,
-	min = 0,
-	max = 2,
-	default = 1,
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
 
-	page = TrappingSurvival,
-	translation = TrappingSurvival_Squirrel,
+    page = TrappingSurvival,
+    translation = TrappingSurvivalSquirrel,
+}
+
+option TrappingSurvival.SquirrelSize
+{
+    type = double,
+    min = 0,
+    max = 2,
+    default = 1,
+
+    page = TrappingSurvival,
+    translation = TrappingSurvival_SquirrelSize,
 }

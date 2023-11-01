@@ -9,8 +9,11 @@
 
 ---@class Rat
 
-
 local creatureFactory = require("CreatureFactory")
+local dataValidator = require("lib/DataValidator")
+local errHandler = require("lib/ErrHandler")
+
+---@type table
 local rat = {}
 
 local trap = require("Trap")
@@ -20,76 +23,121 @@ local zone = require("Zone")
 --- ---------------------- Start Rat Default values -------------------------------
 
 --                  ** BAIT **
+---@type int
 local cheese = 60
+---@type int
 local chocolate = 30
+---@type int
 local peanutButter = 40
+---@type int
 local processedCheese = 55
+---@type int
 local tomato = 35
 
 --                  ** ZONE **
+---@type int
 local deepForest = 10
+---@type int
 local farmLand = 50
+---@type int
 local forest = 10
+---@type int
 local townZone = 30
+---@type int
 local trailerPark = 40
+---@type int
 local vegetation = 20
 
 --                  ** TRAP **
+---@type int
 local trapMouse = 25
 
 --                  ** ANIMALS **
--- Type of animal
+--- **Type of animal**
 local type = "rat"
 
--- after how many hour the animal will start to destroy the cage/escape
+--- **After how many hour the animal will start to destroy the cage/escape**
 local strength = 24
 
--- item given to the player
+--- **Item given to the player**
+---@type string
 local item = "Base.DeadRat"
 
--- hour this animal will be out and when you can catch it
+--- **Hour this animal will be out and when you can catch it**
+---@type int
 local minHour = 0
+
+--- **Hour this animal will be out and when you can catch it**
+---@type int
 local maxHour = 0
 
--- min and max "size" (understand hunger reduction) of the animal
-local minSize = 5
-local maxSize = 25
+--- **Min and max "size" (understand hunger reduction) of the animal**
+---@type int
+local minSizePrey = 5
+
+--- **Min and max "size" (understand hunger reduction) of the animal**
+---@type int
+local maxSizePrey = 25
 
 --- ---------------------- Start Set Multiplier -------------------
 
 --- **Set Bait Multiplier**
----@param multiplier int
-local function setBaitMultiplier(multiplier)
-    bait.setCheese(cheese * multiplier)
-    bait.setChocolate(chocolate * multiplier)
-    bait.setPeanutButter(peanutButter * multiplier)
-    bait.setProcessedCheese(processedCheese * multiplier)
-    bait.setTomato(tomato * multiplier)
+---@param multiplierPrey int
+local function setBaitMultiplier(multiplierPrey)
+    if not dataValidator.isInt(multiplierPrey) then
+        errHandler.errMsg("Rat - setBaitMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    bait.setCheese(cheese * multiplierPrey)
+    bait.setChocolate(chocolate * multiplierPrey)
+    bait.setPeanutButter(peanutButter * multiplierPrey)
+    bait.setProcessedCheese(processedCheese * multiplierPrey)
+    bait.setTomato(tomato * multiplierPrey)
 end
 
 --- **Set Trap Multiplier**
----@param multiplier int
-local function setTrapMultiplier(multiplier)
-    trap.setTrapMouse(trapMouse * multiplier)
+---@param multiplierPrey int
+local function setTrapMultiplier(multiplierPrey)
+    if not dataValidator.isInt(multiplierPrey) then
+        errHandler.errMsg("Rat - setTrapMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    trap.setTrapMouse(trapMouse * multiplierPrey)
 end
 
 --- **Set Zone Multiplier**
----@param multiplier int
-local function setZoneMultiplier(multiplier)
-    zone.setDeepForest(deepForest * multiplier)
-    zone.setFarmLand(farmLand * multiplier)
-    zone.setForest(forest * multiplier)
-    zone.setTownZone(townZone * multiplier)
-    zone.setTrailerPark(trailerPark * multiplier)
-    zone.setVegetation(vegetation * multiplier)
+---@param multiplierPrey int
+local function setZoneMultiplier(multiplierPrey)
+    if not dataValidator.isInt(multiplierPrey) then
+        errHandler.errMsg("Rat - setZoneMultiplier(multiplierPrey)",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    zone.setDeepForest(deepForest * multiplierPrey)
+    zone.setFarmLand(farmLand * multiplierPrey)
+    zone.setForest(forest * multiplierPrey)
+    zone.setTownZone(townZone * multiplierPrey)
+    zone.setTrailerPark(trailerPark * multiplierPrey)
+    zone.setVegetation(vegetation * multiplierPrey)
 end
 
 --- **Set "size" Multiplier**
 --- Min and max "size" (understand hunger reduction) of the animal
----@param multiplier int
-local function setSizeAnimalMultiplier(multiplier)
-    rat.minSize = minSize * multiplier;
-    rat.maxSize = maxSize * multiplier;
+---@param multiplierPreySize int
+local function setSizeAnimalMultiplier(multiplierPreySize)
+    if not dataValidator.isInt(multiplierPreySize) then
+        errHandler.errMsg("Rat - setSizeAnimalMultiplier(multiplierPreySize)",
+                "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    rat.minSize = minSizePrey * multiplierPreySize;
+    rat.maxSize = maxSizePrey * multiplierPreySize;
 end
 
 --- ---------------------- Start init Bait -------------------
@@ -119,14 +167,29 @@ end
 
 --- **Init**
 local function init()
-    local multiplier = SandboxVars.TrappingSurvival.Rat
-    rat = creatureFactory.creature(type, strength, item, maxSize, minSize, minHour, maxHour)
+    ---@type int
+    local multiplierPrey = SandboxVars.TrappingSurvival.Rat
+
+    ---@type int
+    local multiplierPreySize = SandboxVars.TrappingSurvival.RatSize
+
+    if not dataValidator.isInt(multiplierPrey) then
+        errHandler.errMsg("Rat - init()",
+                "multiplierPrey " .. errHandler.err.IS_NOT_INT)
+        return nil
+    elseif not dataValidator.isInt(multiplierPreySize) then
+        errHandler.errMsg("Rat - init()",
+                "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
+        return nil
+    end
+
+    rat = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
 
     --                  ** MULTIPLIER **
-    setBaitMultiplier(multiplier)
-    setTrapMultiplier(multiplier)
-    setZoneMultiplier(multiplier)
-    -- setSizeAnimalMultiplier(multiplier)
+    setBaitMultiplier(multiplierPrey)
+    setTrapMultiplier(multiplierPrey)
+    setZoneMultiplier(multiplierPrey)
+    setSizeAnimalMultiplier(multiplierPreySize)
 
     --                  ** Init bait/trap/zone **
     initBait()

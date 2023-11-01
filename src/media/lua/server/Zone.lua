@@ -9,31 +9,51 @@
 
 ---@class Zone
 
-local Zone = {}
+local errHandler = require("lib/ErrHandler")
+local dataValidator = require("lib/DataValidator")
 
+local Zone = {}
+---@type int
 local deepForest
+---@type int
 local farmLand
+---@type int
 local forest
+---@type int
 local townZone
+---@type int
 local trailerPark
+---@type int
 local vegetation
 
 ----- **Enum Zone**
 Zone.zone = {
+    ---@type string
     DEEP_FOREST = "DeepForest",
+    ---@type string
     FOREST = "Forest",
+    ---@type string
     TOWN_ZONE = "TownZone",
+    ---@type string
     TRAILER_PARK = "TrailerPark",
+    ---@type string
     VEGETATION = "Vegitation", -- <<< "Vegitation" it's not my error!!!
+    ---@type string
     FARM_LAND = "FarmLand",
 }
 
 --- **Set Deep Forest**
 ---@param deepForest_ int
+---@return void
 function Zone.setDeepForest(deepForest_)
-    if deepForest_ < 0 then
-        print("ERROR : DEEPFOREST " .. tostring(deepForest_))
-        return
+    if not dataValidator.isNumber(deepForest_) then
+        errHandler.errMsg("Zone.setDeepForest(deepForest_)",
+                " deepForest_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif deepForest_ < 0 then
+        errHandler.errMsg("Zone.setDeepForest(deepForest_)",
+                " deepForest_ < 0" )
+        return nil
     end
 
     deepForest = deepForest_
@@ -47,10 +67,16 @@ end
 
 --- **Set FarmLand**
 ---@param farmland_ int
+---@return void
 function Zone.setFarmLand(farmland_)
-    if farmland_ < 0 then
-        print("ERROR : FARMLAND " .. tostring(farmland_))
-        return
+    if not dataValidator.isNumber(farmland_) then
+        errHandler.errMsg("Zone.setFarmLand(farmland_)",
+                " farmland_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif farmland_ < 0 then
+        errHandler.errMsg("Zone.setFarmLand(farmland_)",
+                " farmland_ < 0" )
+        return nil
     end
 
     farmLand = farmland_
@@ -65,10 +91,16 @@ end
 
 --- **Set Forest**
 ---@param forest_ int
+---@return void
 function Zone.setForest(forest_)
-    if forest_ < 0 then
-        print("ERROR : FOREST " .. tostring(forest_))
-        return
+    if not dataValidator.isNumber(forest_) then
+        errHandler.errMsg("Zone.setForest(forest_)",
+                " forest_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif forest_ < 0 then
+        errHandler.errMsg("Zone.setForest(forest_)",
+                " forest_ < 0" )
+        return nil
     end
 
     forest = forest_
@@ -82,10 +114,16 @@ end
 
 --- **Set Town Zone**
 ---@param townZone_ int
+---@return void
 function Zone.setTownZone(townZone_)
-    if townZone_ < 0 then
-        print("ERROR : TOWNZONE " .. tostring(townZone_))
-        return
+    if not dataValidator.isNumber(townZone_) then
+        errHandler.errMsg("Zone.setTownZone(townZone_)",
+                " townZone_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif townZone_ < 0 then
+        errHandler.errMsg("Zone.setTownZone(townZone_)",
+                " townZone_ < 0" )
+        return nil
     end
 
     townZone = townZone_
@@ -99,10 +137,16 @@ end
 
 --- **Set Trailer Park**
 ---@param trailerPark_ int
+---@return void
 function Zone.setTrailerPark(trailerPark_)
-    if trailerPark_ < 0 then
-        print("ERROR : TRAILERPARK " .. tostring(trailerPark_))
-        return
+    if not dataValidator.isNumber(trailerPark_) then
+        errHandler.errMsg("Zone.setTrailerPark(trailerPark_)",
+                " trailerPark_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif trailerPark_ < 0 then
+        errHandler.errMsg("Zone.setTrailerPark(trailerPark_)",
+                " trailerPark_ < 0" )
+        return nil
     end
 
     trailerPark = trailerPark_
@@ -116,10 +160,16 @@ end
 
 --- **Set Vegetation**
 ---@param vegetation_ int
+---@return void
 function Zone.setVegetation(vegetation_)
-    if vegetation_ < 0 then
-        print("ERROR : VEGETATION " .. tostring(vegetation_))
-        return
+    if not dataValidator.isNumber(vegetation_) then
+        errHandler.errMsg("Zone.setVegetation(vegetation_)",
+                " vegetation_ " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    elseif vegetation_ < 0 then
+        errHandler.errMsg("Zone.setVegetation(vegetation_)",
+                " vegetation_ < 0" )
+        return nil
     end
 
     vegetation = vegetation_

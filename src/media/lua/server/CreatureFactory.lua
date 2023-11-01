@@ -9,8 +9,24 @@
 
 ---@class CreatureFactory
 
+local errHandler = require("lib/ErrHandler")
+local dataValidator = require("lib/DataValidator")
+
 local CreatureFactory = {}
 
+---@param animal string
+---@param strength int
+---@param item string
+---@param minSize int
+---@param maxSize int
+---@param minHour int
+---@param maxHour int
+---@return table
+--- - animal - type of animal
+--- - strength - how many hour the animal will start to destroy the cage/escape
+--- - item - given to the player
+--- - minSize/maxSize - "size" (understand hunger reduction) of the animal
+--- - minHour/maxHour - hour this animal will be out and when you can catch it
 function CreatureFactory.creature(animal, strength, item, minSize, maxSize, minHour, maxHour)
     local creature = {}
     creature.baits = {}
@@ -29,27 +45,84 @@ end
 --- ---------------------- Start table bait/trap/zone -------------
 
 --- **Create Bait**
----@param creature_ table -- baits
----@param baitEnum Enum
----@param bait string
-function CreatureFactory.createBait(creature_, baitEnum, bait)
-    creature_.baits[baitEnum] = bait
+---@param baitTable table -- baits
+---@param baitId string
+---@param baitValue int
+---@return void
+function CreatureFactory.createBait(baitTable, baitId, baitValue)
+    if not dataValidator.isString(baitId) then
+        errHandler.errMsg("createBait(baitTable, baitId, baitValue)",
+        " baitId " .. errHandler.err.IS_NOT_STRING)
+        return nil
+    end
+
+    if not dataValidator.isNumber(baitValue) then
+        errHandler.errMsg("createBait(baitTable, baitId, baitValue)",
+        " baitValue " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    end
+
+    if not dataValidator.validateTableValue(baitTable, baitId, baitValue) then
+        errHandler.errMsg("createBait(baitTable, baitId, baitValue)",
+        " baitTable " .. errHandler.err.IS_NOT_TABLE)
+        return nil
+    end
+
+    baitTable.baits[baitId] = baitValue
 end
 
 --- **Create Trap**
----@param creature_ table -- traps
----@param trapEnum Enum
----@param trap string
-function CreatureFactory.createTrap(creature_, trapEnum, trap)
-    creature_.traps[trapEnum] = trap
+---@param trapTable table -- traps
+---@param trapId string
+---@param trapValue int
+---@return void
+function CreatureFactory.createTrap(trapTable, trapId, trapValue)
+    if not dataValidator.isString(trapId) then
+        errHandler.errMsg("createTrap(trapTable, trapId, trapValue)",
+        " trapId " .. errHandler.err.IS_NOT_STRING)
+        return nil
+    end
+
+    if not dataValidator.isNumber(trapValue) then
+        errHandler.errMsg("createTrap(trapTable, trapId, trapValue)",
+        " trapValue " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    end
+
+    if not dataValidator.validateTableValue(trapTable, trapId, trapValue) then
+        errHandler.errMsg("createTrap(trapTable, trapId, trapValue)",
+        " trapTable " .. errHandler.err.IS_NOT_TABLE)
+        return nil
+    end
+
+    trapTable.traps[trapId] = trapValue
 end
 
 --- **Create Zone**
----@param creature_ table -- zone
----@param zoneEnum Enum
----@param zone string
-function CreatureFactory.createZone(creature_, zoneEnum, zone)
-    creature_.zone[zoneEnum] = zone
+---@param zoneTable table -- zone
+---@param zoneId string
+---@param zoneValue int
+---@return void
+function CreatureFactory.createZone(zoneTable, zoneId, zoneValue)
+    if not dataValidator.isString(zoneId) then
+        errHandler.errMsg("createZone(zoneTable, zoneId, zoneValue)",
+        " zoneId " .. errHandler.err.IS_NOT_STRING)
+        return nil
+    end
+
+    if not dataValidator.isNumber(zoneValue) then
+        errHandler.errMsg("createZone(zoneTable, zoneId, zoneValue)",
+        " zoneValue " .. errHandler.err.IS_NOT_NUMBER)
+        return nil
+    end
+
+    if not dataValidator.validateTableValue(zoneTable, zoneId, zoneValue) then
+        errHandler.errMsg("createZone(zoneTable, zoneId, zoneValue)",
+        " zoneTable " .. errHandler.err.IS_NOT_TABLE)
+        return nil
+    end
+
+    zoneTable.zone[zoneId] = zoneValue
 end
 
 return CreatureFactory

@@ -7,9 +7,10 @@
 
 ---@class TrappingSurvival
 
-Animals = {}
 
 local function init()
+    Animals = {}
+
     table.insert(Animals, getBird())
     table.insert(Animals, getMouse())
     table.insert(Animals, getRabbit())
