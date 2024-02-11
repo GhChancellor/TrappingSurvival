@@ -6,11 +6,12 @@
 
 ---@class CharacterLib
 
+require("lib/CharacterBaseObj")
+
 local characterPz = require("lib/CharacterPZ")
-local perkFactoryPZ = require("lib/PerkFactoryPZ")
 local dataValidator = require("lib/DataValidator")
 local errHandler = require("lib/ErrHandler")
-require("lib/CharacterBaseObj")
+local perkFactoryPZ = require("lib/PerkFactoryPZ")
 
 local CharacterLib = {}
 
@@ -25,7 +26,7 @@ function CharacterLib.getTraitsPerk(character)
         return nil
     end
 
-    ---@type CharacterBaseObj
+    --  @type CharacterBaseObj
     local CharacterObj01 = CharacterBaseObj:new()
 
     ---@type List
@@ -130,7 +131,7 @@ end
 --- **Get character and get All skills/traits**
 ---@param character IsoGameCharacter
 ---
----@return CharacterBaseObj getPerkDetails() - table <PerkFactory.Perk perk, int level, float xp>
+---@return ---@param character IsoGameCharacter getPerkDetails() - table <PerkFactory.Perk perk, int level, float xp>
 --- - IsoGameCharacter : zombie.characters.IsoGameCharacter
 function CharacterLib.getAllPerks(character)
     if not character then
@@ -202,8 +203,8 @@ function CharacterLib.getPerksBoost(character)
 
     for _, v in pairs(CharacterObj01:getPerkDetails()) do
         ---@type int
-        local boost = characterPz.getPerkBoost_PZ(character, v:getPerk())
-        v:setBoostLevel(boost)
+        local boost = characterPz.getXPBoost(character, v:getPerk())
+        v:setXPBoost(boost)
     end
 
     return CharacterObj01
@@ -227,65 +228,6 @@ function CharacterLib.getKnownRecipes(character)
 
     for i = 0, knowRecipes:size() - 1 do
         CharacterObj01:addRecipe(knowRecipes:get(i))
-    end
-
-    return CharacterObj01
-end
-
---- **Encode Perk Details convert the CharacterObj into a table. The ModData only accepts a table**
----@param characterObj CharacterBaseObj
----@return table
-function CharacterLib.encodePerkDetails(characterObj)
-    if not characterObj then
-        errHandler.errMsg("CharacterLib.encodePerkDetails(characterObj)",
-             "characterObj " .. errHandler.err.IS_NULL)
-    end
-
-    ---@type table
-    local lines = {}
-
-    -- @param perk PerkFactory.Perk
-    -- @param level int
-    -- @param xp float
-    for _, v in pairs(characterObj:getPerkDetails()) do
-        local value = ( v.perk:getName() .. "-" ..
-                tostring(v:getCurrentLevel())  .. "-" ..
-                tostring(v:getXp()))
-
-        table.insert(lines, value)
-    end
-
-    return lines
-end
-
---- **Decode Perk Details convert a table into CharacterObj**
----@param characterPerkDetails table
----@return CharacterBaseObj getPerkDetails()
---- - IsoGameCharacter : zombie.characters.IsoGameCharacter
-function CharacterLib.decodePerkDetails(characterPerkDetails)
-    if not dataValidator.isTable(characterPerkDetails) then
-        errHandler.errMsg("CharacterLib.decodePerkDetails(characterPerkDetails)",
-                "characterPerkDetails " .. errHandler.err.IS_NOT_TABLE)
-        return nil
-    end
-
-    ---@type CharacterBaseObj
-    local CharacterObj01 = CharacterBaseObj:new()
-
-    ---@type table
-    local lines = {}
-
-    for _, v in pairs(characterPerkDetails) do
-        for s in v:gmatch("[^\r-]+") do
-            table.insert(lines, s)
-        end
-
-        -- perk, level, xp
-        CharacterObj01:addPerkDetails(perkFactoryPZ.getPerkByName_PZ(lines[1]),
-                tonumber(lines[2]),
-                tonumber(lines[3]) + 0.0)
-
-        lines = {}
     end
 
     return CharacterObj01

@@ -21,7 +21,7 @@ local CreatureFactory = {}
 ---@param maxSize int
 ---@param minHour int
 ---@param maxHour int
----@return table
+-- ---@return table
 --- - animal - type of animal
 --- - strength - how many hour the animal will start to destroy the cage/escape
 --- - item - given to the player
@@ -49,6 +49,7 @@ end
 ---@param baitId string
 ---@param baitValue int
 ---@return void
+--- - creatureFactory.createBait(mouse, bait.bait.CHEESE, bait.getCheese())
 function CreatureFactory.createBait(baitTable, baitId, baitValue)
     if not dataValidator.isString(baitId) then
         errHandler.errMsg("createBait(baitTable, baitId, baitValue)",
@@ -68,7 +69,7 @@ function CreatureFactory.createBait(baitTable, baitId, baitValue)
         return nil
     end
 
-    baitTable.baits[baitId] = baitValue
+    baitTable[baitId] = baitValue
 end
 
 --- **Create Trap**
@@ -76,6 +77,7 @@ end
 ---@param trapId string
 ---@param trapValue int
 ---@return void
+--- - creatureFactory.createTrap(bird, trap.trap.TRAP_STICK, trap.getTrapStick())
 function CreatureFactory.createTrap(trapTable, trapId, trapValue)
     if not dataValidator.isString(trapId) then
         errHandler.errMsg("createTrap(trapTable, trapId, trapValue)",
@@ -95,7 +97,7 @@ function CreatureFactory.createTrap(trapTable, trapId, trapValue)
         return nil
     end
 
-    trapTable.traps[trapId] = trapValue
+    trapTable[trapId] = trapValue
 end
 
 --- **Create Zone**
@@ -103,6 +105,7 @@ end
 ---@param zoneId string
 ---@param zoneValue int
 ---@return void
+--- - creatureFactory.createZone(bird, zone.zone.DEEP_FOREST, zone.getDeepForest())
 function CreatureFactory.createZone(zoneTable, zoneId, zoneValue)
     if not dataValidator.isString(zoneId) then
         errHandler.errMsg("createZone(zoneTable, zoneId, zoneValue)",
@@ -122,7 +125,7 @@ function CreatureFactory.createZone(zoneTable, zoneId, zoneValue)
         return nil
     end
 
-    zoneTable.zone[zoneId] = zoneValue
+    zoneTable[zoneId] = zoneValue
 end
 
 return CreatureFactory

@@ -5,17 +5,26 @@
 -----
 --
 
+--- Version 03-11-23 10:17
+
 ---@class TrappingSurvival
 
+local birdPrey = require("Bird_TS")
+local mousePrey = require("Mouse_TS")
+local rabbitPrey = require("Rabbit_TS")
+local ratPrey = require("Rat_TS")
+local squirrelPrey = require("Squirrel_TS")
 
-local function init()
+--- **Init Trap, bait and prey**
+---@void
+function initTrappingSurvival()
     Animals = {}
 
-    table.insert(Animals, getBird())
-    table.insert(Animals, getMouse())
-    table.insert(Animals, getRabbit())
-    table.insert(Animals, getRat())
-    table.insert(Animals, getSquirrel())
+    table.insert(Animals, birdPrey.getBird())
+    table.insert(Animals, mousePrey.getMouse())
+    table.insert(Animals, rabbitPrey.getRabbit())
+    table.insert(Animals, ratPrey.getRat())
+    table.insert(Animals, squirrelPrey.getSquirrel())
 end
 
-init()
+initTrappingSurvival()

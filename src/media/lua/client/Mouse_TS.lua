@@ -7,20 +7,24 @@
 -- https://pzwiki.net/wiki/Trapping
 -- SteamLibrary/steamapps/common/ProjectZomboid/projectzomboid/media/lua/server/Traps/TrapDefinition.lua
 
----@class Rat
+---@class Mouse
 
 local creatureFactory = require("CreatureFactory")
 local dataValidator = require("lib/DataValidator")
 local errHandler = require("lib/ErrHandler")
 
----@type table
-local rat = {}
+--- **This is a class**
+local Mouse = {}
 
-local trap = require("Trap")
-local bait = require("Bait")
-local zone = require("Zone")
+--- **This is an animal with its properties**
+-- @type table
+local mouse = {}
 
---- ---------------------- Start Rat Default values -------------------------------
+local bait = require("Bait_TS")
+local trap = require("Trap_TS")
+local zone = require("Zone_TS")
+
+--- ---------------------- Start Mouse Default values -------------------------------
 
 --                  ** BAIT **
 ---@type int
@@ -38,30 +42,32 @@ local tomato = 35
 ---@type int
 local deepForest = 10
 ---@type int
-local farmLand = 50
+local farmLand = 60
 ---@type int
 local forest = 10
 ---@type int
-local townZone = 30
+local townZone = 50
 ---@type int
-local trailerPark = 40
+local trailerPark = 60
 ---@type int
 local vegetation = 20
 
 --                  ** TRAP **
 ---@type int
-local trapMouse = 25
+local trapMouse = 30
 
 --                  ** ANIMALS **
---- **Type of animal**
-local type = "rat"
+-- **Type of animal**
+---@type string
+local type = "mouse"
 
 --- **After how many hour the animal will start to destroy the cage/escape**
+---@type int
 local strength = 24
 
---- **Item given to the player**
+--- **item given to the player**
 ---@type string
-local item = "Base.DeadRat"
+local item = "Base.DeadMouse"
 
 --- **Hour this animal will be out and when you can catch it**
 ---@type int
@@ -73,19 +79,19 @@ local maxHour = 0
 
 --- **Min and max "size" (understand hunger reduction) of the animal**
 ---@type int
-local minSizePrey = 5
+local minSizePrey = 1
 
 --- **Min and max "size" (understand hunger reduction) of the animal**
 ---@type int
-local maxSizePrey = 25
+local maxSizePrey = 10
 
 --- ---------------------- Start Set Multiplier -------------------
 
 --- **Set Bait Multiplier**
 ---@param multiplierPrey int
 local function setBaitMultiplier(multiplierPrey)
-    if not dataValidator.isInt(multiplierPrey) then
-        errHandler.errMsg("Rat - setBaitMultiplier(multiplierPrey)",
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Mouse - setBaitMultiplier(multiplierPrey)",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     end
@@ -100,8 +106,8 @@ end
 --- **Set Trap Multiplier**
 ---@param multiplierPrey int
 local function setTrapMultiplier(multiplierPrey)
-    if not dataValidator.isInt(multiplierPrey) then
-        errHandler.errMsg("Rat - setTrapMultiplier(multiplierPrey)",
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Mouse - setTrapMultiplier(multiplierPrey)",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     end
@@ -112,8 +118,8 @@ end
 --- **Set Zone Multiplier**
 ---@param multiplierPrey int
 local function setZoneMultiplier(multiplierPrey)
-    if not dataValidator.isInt(multiplierPrey) then
-        errHandler.errMsg("Rat - setZoneMultiplier(multiplierPrey)",
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Mouse - setZoneMultiplier(multiplierPrey)",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     end
@@ -129,67 +135,67 @@ end
 --- **Set "size" Multiplier**
 --- Min and max "size" (understand hunger reduction) of the animal
 ---@param multiplierPreySize int
-local function setSizeAnimalMultiplier(multiplierPreySize)
-    if not dataValidator.isInt(multiplierPreySize) then
-        errHandler.errMsg("Rat - setSizeAnimalMultiplier(multiplierPreySize)",
+local function setMultiplierPreySize(multiplierPreySize)
+    if not dataValidator.isNumber(multiplierPreySize) then
+        errHandler.errMsg("Mouse - setMultiplierPreySize(multiplierPreySize)",
                 "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
         return nil
     end
 
-    rat.minSize = minSizePrey * multiplierPreySize;
-    rat.maxSize = maxSizePrey * multiplierPreySize;
+    mouse.minSize = minSizePrey * multiplierPreySize;
+    mouse.maxSize = maxSizePrey * multiplierPreySize;
 end
 
 --- ---------------------- Start init Bait -------------------
 
 --- **Init Bait**
 local function initBait()
-    creatureFactory.createBait(rat, bait.bait.CHEESE, bait.getCheese())
-    creatureFactory.createBait(rat, bait.bait.CHOCOLATE, bait.getChocolate())
-    creatureFactory.createBait(rat, bait.bait.PEANUT_BUTTER, bait.getPeanutButter())
-    creatureFactory.createBait(rat, bait.bait.PROCESSED_CHEESE, bait.getProcessedCheese())
-    creatureFactory.createBait(rat, bait.bait.TOMATO, bait.getTomato())
+    creatureFactory.createBait(mouse.baits, bait.bait.CHEESE, bait.getCheese())
+    creatureFactory.createBait(mouse.baits, bait.bait.CHOCOLATE, bait.getChocolate())
+    creatureFactory.createBait(mouse.baits, bait.bait.PEANUT_BUTTER, bait.getPeanutButter())
+    creatureFactory.createBait(mouse.baits, bait.bait.PROCESSED_CHEESE, bait.getProcessedCheese())
+    creatureFactory.createBait(mouse.baits, bait.bait.TOMATO, bait.getTomato())
 end
 
 --- **Init Trap**
 local function initTrap()
-    creatureFactory.createTrap(rat, trap.trap.MOUSE, trap.getTrapMouse())
+    creatureFactory.createTrap(mouse.traps, trap.trap.MOUSE, trap.getTrapMouse())
 end
 
 --- **Init Zone**
 local function initZone()
-    creatureFactory.createZone(rat, zone.zone.DEEP_FOREST, zone.getDeepForest())
-    creatureFactory.createZone(rat, zone.zone.FOREST, zone.getForest())
-    creatureFactory.createZone(rat, zone.zone.TOWN_ZONE, zone.getTownZone())
-    creatureFactory.createZone(rat, zone.zone.TRAILER_PARK, zone.getTrailerPark())
-    creatureFactory.createZone(rat, zone.zone.VEGETATION, zone.getVegetation())
+    creatureFactory.createZone(mouse.zone, zone.zone.DEEP_FOREST, zone.getDeepForest())
+    creatureFactory.createZone(mouse.zone, zone.zone.FOREST, zone.getForest())
+    creatureFactory.createZone(mouse.zone, zone.zone.TOWN_ZONE, zone.getTownZone())
+    creatureFactory.createZone(mouse.zone, zone.zone.TRAILER_PARK, zone.getTrailerPark())
+    creatureFactory.createZone(mouse.zone, zone.zone.VEGETATION, zone.getVegetation())
 end
 
 --- **Init**
 local function init()
     ---@type int
-    local multiplierPrey = SandboxVars.TrappingSurvival.Rat
+    local multiplierPrey = SandboxVars.TrappingSurvival.Mouse
 
     ---@type int
-    local multiplierPreySize = SandboxVars.TrappingSurvival.RatSize
+    local multiplierPreySize = SandboxVars.TrappingSurvival.MouseSize
 
-    if not dataValidator.isInt(multiplierPrey) then
-        errHandler.errMsg("Rat - init()",
+    if not dataValidator.isNumber(multiplierPrey) then
+        errHandler.errMsg("Mouse - init()",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
-    elseif not dataValidator.isInt(multiplierPreySize) then
-        errHandler.errMsg("Rat - init()",
+    elseif not dataValidator.isNumber(multiplierPreySize) then
+        errHandler.errMsg("Mouse - init()",
                 "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
         return nil
     end
 
-    rat = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
+    mouse = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
 
     --                  ** MULTIPLIER **
     setBaitMultiplier(multiplierPrey)
     setTrapMultiplier(multiplierPrey)
     setZoneMultiplier(multiplierPrey)
-    setSizeAnimalMultiplier(multiplierPreySize)
+    setMultiplierPreySize(multiplierPreySize)
 
     --                  ** Init bait/trap/zone **
     initBait()
@@ -198,9 +204,11 @@ local function init()
 
 end
 
----**Get Rat**
----@return table Rat
-function getRat()
+---**Get Mouse**
+---@return table Mouse
+function Mouse.getMouse()
     init()
-    return rat
+    return mouse
 end
+
+return Mouse

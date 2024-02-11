@@ -7,42 +7,46 @@
 -- https://pzwiki.net/wiki/Trapping
 -- SteamLibrary/steamapps/common/ProjectZomboid/projectzomboid/media/lua/server/Traps/TrapDefinition.lua
 
----@class Squirrel
+---@class Rabbit
 
---- ---------------------- Start Squirrel Default values -------------------------------
+--- ---------------------- Start Rabbit Default values -------------------------------
 
 local creatureFactory = require("CreatureFactory")
 local dataValidator = require("lib/DataValidator")
 local errHandler = require("lib/ErrHandler")
 
+--- **This is a class**
+local Rabbit = {}
 
-local squirrel = {}
+--- **This is an animal with its properties**
+-- @type table
+local rabbit = {}
 
-local trap = require("Trap")
-local bait = require("Bait")
-local zone = require("Zone")
+local bait = require("Bait_TS")
+local trap = require("Trap_TS")
+local zone = require("Zone_TS")
 
 --                  ** BAIT **
 ---@type int
-local apple = 40
+local apple = 35
 ---@type int
-local bellPepper = 30
+local banana = 35
 ---@type int
-local cereal = 45
+local bellPepper = 40
 ---@type int
-local corn = 40
+local cabbage = 40
 ---@type int
-local orange = 40
+local carrots = 45
+---@type int
+local corn = 35
 ---@type int
 local lettuce = 40
 ---@type int
 local peach = 35
 ---@type int
-local peanutButter = 45
+local potato = 35
 ---@type int
-local peanuts = 40
----@type int
-local popcorn = 40
+local tomato = 35
 
 --                  ** ZONE **
 ---@type int
@@ -58,7 +62,7 @@ local vegetation = 10
 
 --                  ** TRAP **
 ---@type int
-local trapBox = 25
+local trapBox = 30
 ---@type int
 local trapCage = 40
 ---@type int
@@ -69,7 +73,7 @@ local trapSnare = 30
 --                  ** ANIMALS **
 --- **Type of animal**
 ---@type string
-local type = "squirrel"
+local type = "rabbit"
 
 --- **After how many hour the animal will start to destroy the cage/escape**
 ---@type int
@@ -77,11 +81,12 @@ local strength = 24
 
 --- **Item given to the player**
 ---@type string
-local item = "Base.DeadSquirrel"
+local item = "Base.DeadRabbit"
 
 --- **Hour this animal will be out and when you can catch it**
 ---@type int
 local minHour = 18
+
 --- **Hour this animal will be out and when you can catch it**
 ---@type int
 local maxHour = 8
@@ -100,28 +105,28 @@ local maxSizePrey = 100
 ---@param multiplierPrey int
 local function setBaitMultiplier(multiplierPrey)
     if not dataValidator.isNumber(multiplierPrey) then
-        errHandler.errMsg("Squirrel - setBaitMultiplier(multiplierPrey)",
+        errHandler.errMsg("Rabbit - setBaitMultiplier(multiplierPrey)",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     end
 
     bait.setApple(apple * multiplierPrey)
+    bait.setBanana(banana * multiplierPrey)
     bait.setBellPepper(bellPepper * multiplierPrey)
-    bait.setCereal(cereal * multiplierPrey)
+    bait.setCabbage(cabbage * multiplierPrey)
+    bait.setCarrots(carrots * multiplierPrey)
     bait.setCorn(corn * multiplierPrey)
-    bait.setOrange(orange * multiplierPrey)
     bait.setLettuce(lettuce * multiplierPrey)
     bait.setPeach(peach * multiplierPrey)
-    bait.setPeanutButter(peanutButter * multiplierPrey)
-    bait.setPeanuts(peanuts * multiplierPrey)
-    bait.setPopcorn(popcorn * multiplierPrey)
+    bait.setPotato(potato * multiplierPrey)
+    bait.setTomato(tomato * multiplierPrey)
 end
 
 --- **Set Trap Multiplier**
 ---@param multiplierPrey int
 local function setTrapMultiplier(multiplierPrey)
     if not dataValidator.isNumber(multiplierPrey) then
-        errHandler.errMsg("Squirrel - setTrapMultiplier(multiplierPrey)",
+        errHandler.errMsg("Rabbit - setTrapMultiplier(multiplierPrey)",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     end
@@ -136,7 +141,7 @@ end
 ---@param multiplierPrey int
 local function setZoneMultiplier(multiplierPrey)
     if not dataValidator.isNumber(multiplierPrey) then
-        errHandler.errMsg("Squirrel - setZoneMultiplier(multiplierPrey)",
+        errHandler.errMsg("Rabbit - setZoneMultiplier(multiplierPrey)",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     end
@@ -151,74 +156,75 @@ end
 --- **Set "size" Multiplier**
 --- Min and max "size" (understand hunger reduction) of the animal
 ---@param multiplierPreySize int
-local function setSizeAnimalMultiplier(multiplierPreySize)
-    if not  dataValidator.isNumber(multiplierPreySize) then
-        errHandler.errMsg("Squirrel - setSizeAnimalMultiplier(multiplierPreySize)",
+local function setMultiplierPreySize(multiplierPreySize)
+    if not dataValidator.isNumber(multiplierPreySize) then
+        errHandler.errMsg("Rabbit - setMultiplierPreySize(multiplierPreySize)",
                 "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
         return nil
     end
 
-    squirrel.minSize = minSizePrey * multiplierPreySize;
-    squirrel.maxSize = maxSizePrey * multiplierPreySize;
+    rabbit.minSize = minSizePrey * multiplierPreySize;
+    rabbit.maxSize = maxSizePrey * multiplierPreySize;
 end
 
 --- ---------------------- Start init Bait -------------------
 
 --- **Init Bait**
 local function initBait()
-    creatureFactory.createBait(squirrel, bait.bait.APPLE, bait.getApple())
-    creatureFactory.createBait(squirrel, bait.bait.BELL_PEPPER, bait.getBellPepper())
-    creatureFactory.createBait(squirrel, bait.bait.CEREAL, bait.getCereal())
-    creatureFactory.createBait(squirrel, bait.bait.CORN, bait.getCorn())
-    creatureFactory.createBait(squirrel, bait.bait.ORANGE, bait.getOrange())
-    creatureFactory.createBait(squirrel, bait.bait.LETTUCE, bait.getLettuce())
-    creatureFactory.createBait(squirrel, bait.bait.PEACH, bait.getPeach())
-    creatureFactory.createBait(squirrel, bait.bait.PEANUT_BUTTER, bait.getPeanutButter())
-    creatureFactory.createBait(squirrel, bait.bait.PEANUTS, bait.getPeanuts())
-    creatureFactory.createBait(squirrel, bait.bait.POPCORN, bait.getPopcorn())
+    creatureFactory.createBait(rabbit.baits, bait.bait.APPLE, bait.getApple())
+    creatureFactory.createBait(rabbit.baits, bait.bait.BANANA, bait.getBanana())
+    creatureFactory.createBait(rabbit.baits, bait.bait.BELL_PEPPER, bait.getBellPepper())
+    creatureFactory.createBait(rabbit.baits, bait.bait.CABBAGE, bait.getCabbage())
+    creatureFactory.createBait(rabbit.baits, bait.bait.CARROTS, bait.getCarrots())
+    creatureFactory.createBait(rabbit.baits, bait.bait.CORN, bait.getCorn())
+    creatureFactory.createBait(rabbit.baits, bait.bait.LETTUCE, bait.getLettuce())
+    creatureFactory.createBait(rabbit.baits, bait.bait.PEACH, bait.getPeach())
+    creatureFactory.createBait(rabbit.baits, bait.bait.POTATO, bait.getPotato())
+    creatureFactory.createBait(rabbit.baits, bait.bait.TOMATO, bait.getTomato())
 end
 
 --- **Init Trap**
 local function initTrap()
-    creatureFactory.createTrap(squirrel, trap.trap.BOX, trap.getTrapBox())
-    creatureFactory.createTrap(squirrel, trap.trap.CAGE, trap.getTrapCage())
-    creatureFactory.createTrap(squirrel, trap.trap.CRATE, trap.getTrapCrate())
-    creatureFactory.createTrap(squirrel, trap.trap.SNARE, trap.getTrapSnare())
+    creatureFactory.createTrap(rabbit.traps, trap.trap.BOX, trap.getTrapBox())
+    creatureFactory.createTrap(rabbit.traps, trap.trap.CAGE, trap.getTrapCage())
+    creatureFactory.createTrap(rabbit.traps, trap.trap.CRATE, trap.getTrapCrate())
+    creatureFactory.createTrap(rabbit.traps, trap.trap.SNARE, trap.getTrapSnare())
 end
 
 --- **Init Zone**
 local function initZone()
-    creatureFactory.createZone(squirrel, zone.zone.DEEP_FOREST, zone.getDeepForest())
-    creatureFactory.createZone(squirrel, zone.zone.FOREST, zone.getForest())
-    creatureFactory.createZone(squirrel, zone.zone.TOWN_ZONE, zone.getTownZone())
-    creatureFactory.createZone(squirrel, zone.zone.TRAILER_PARK, zone.getTrailerPark())
-    creatureFactory.createZone(squirrel, zone.zone.VEGETATION, zone.getVegetation())
+    creatureFactory.createZone(rabbit.zone, zone.zone.DEEP_FOREST, zone.getDeepForest())
+    creatureFactory.createZone(rabbit.zone, zone.zone.FOREST, zone.getForest())
+    creatureFactory.createZone(rabbit.zone, zone.zone.TOWN_ZONE, zone.getTownZone())
+    creatureFactory.createZone(rabbit.zone, zone.zone.TRAILER_PARK, zone.getTrailerPark())
+    creatureFactory.createZone(rabbit.zone, zone.zone.VEGETATION, zone.getVegetation())
 end
 
 --- **Init**
 local function init()
     ---@type int
-    local multiplierPrey = SandboxVars.TrappingSurvival.Squirrel
+    local multiplierPrey = SandboxVars.TrappingSurvival.Rabbit
+
     ---@type int
-    local multiplierPreySize = SandboxVars.TrappingSurvival.SquirrelSize
+    local multiplierPreySize = SandboxVars.TrappingSurvival.RabbitSize
 
     if not dataValidator.isNumber(multiplierPrey) then
-        errHandler.errMsg("Squirrel - init()",
+        errHandler.errMsg("Rabbit - init()",
                 "multiplierPrey " .. errHandler.err.IS_NOT_INT)
         return nil
     elseif not dataValidator.isNumber(multiplierPreySize) then
-        errHandler.errMsg("Squirrel - init()",
+        errHandler.errMsg("Rabbit - init()",
                 "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
         return nil
     end
 
-    squirrel = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
+    rabbit = creatureFactory.creature(type, strength, item, minSizePrey, maxSizePrey, minHour, maxHour)
 
     --                  ** MULTIPLIER **
     setBaitMultiplier(multiplierPrey)
     setTrapMultiplier(multiplierPrey)
     setZoneMultiplier(multiplierPrey)
-    setSizeAnimalMultiplier(multiplierPreySize)
+    setMultiplierPreySize(multiplierPreySize)
 
     --                  ** Init bait/trap/zone **
     initBait()
@@ -226,9 +232,11 @@ local function init()
     initZone()
 end
 
----**Get Squirrel**
----@return table Squirrel
-function getSquirrel()
+---**Get Rabbit**
+---@return table Rabbit
+function Rabbit.getRabbit()
     init()
-    return squirrel
+    return rabbit
 end
+
+return Rabbit

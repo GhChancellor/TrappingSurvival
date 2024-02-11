@@ -29,7 +29,7 @@ function DataValidator.validateTableValue( table, key, value)
         return false
     end
 
-    return value
+    return true
 end
 
 --- **Is String**
@@ -42,6 +42,18 @@ function DataValidator.isString(value)
 
     return true
 end
+
+--- **Is Character**
+---@param character IsoGameCharacter
+---@return boolean
+function DataValidator.isCharacter(character)
+    if not instanceof(character, "IsoGameCharacter") then
+        return false
+    end
+
+    return true
+end
+
 
 --- **Is Number**
 ---@param value number

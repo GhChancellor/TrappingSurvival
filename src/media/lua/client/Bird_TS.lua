@@ -13,12 +13,16 @@ local creatureFactory = require("CreatureFactory")
 local dataValidator = require("lib/DataValidator")
 local errHandler = require("lib/ErrHandler")
 
----@type table
+--- **This is a class**
+local Bird = {}
+
+--- **This is an animal with its properties**
+-- @type table
 local bird = {}
 
-local trap = require("Trap")
-local bait = require("Bait")
-local zone = require("Zone")
+local bait = require("Bait_TS")
+local trap = require("Trap_TS")
+local zone = require("Zone_TS")
 
 --- ---------------------- Start Bird Default values -------------------------------
 
@@ -146,9 +150,9 @@ end
 --- - Min and max "size" (understand hunger reduction) of the animal
 ---@param multiplierPreySize int
 ---@return void
-local function setSizeAnimalMultiplier(multiplierPreySize)
+local function setMultiplierPreySize(multiplierPreySize)
     if not dataValidator.isNumber(multiplierPreySize) then
-        errHandler.errMsg("Bird - setSizeAnimalMultiplier(multiplierPreySize)",
+        errHandler.errMsg("Bird - setMultiplierPreySize(multiplierPreySize)",
                 "multiplierPreySize " .. errHandler.err.IS_NOT_INT)
         return nil
     end
@@ -162,31 +166,31 @@ end
 --- **Init Bait**
 ---@type void
 local function initBait()
-    creatureFactory.createBait(bird, bait.bait.BREAD, bait.getBread())
-    creatureFactory.createBait(bird, bait.bait.BREAD_SLICES, bait.getBreadSlices())
-    creatureFactory.createBait(bird, bait.bait.CEREAL, bait.getCereal())
-    creatureFactory.createBait(bird, bait.bait.COCKROACH, bait.getCockroach())
-    creatureFactory.createBait(bird, bait.bait.CORN, bait.getCorn())
-    creatureFactory.createBait(bird, bait.bait.CRICKET, bait.getCricket())
-    creatureFactory.createBait(bird, bait.bait.GRASSHOPPER, bait.getGrasshopper())
-    creatureFactory.createBait(bird, bait.bait.WORM, bait.getWorm())
+    creatureFactory.createBait(bird.baits, bait.bait.BREAD, bait.getBread())
+    creatureFactory.createBait(bird.baits, bait.bait.BREAD_SLICES, bait.getBreadSlices())
+    creatureFactory.createBait(bird.baits, bait.bait.CEREAL, bait.getCereal())
+    creatureFactory.createBait(bird.baits, bait.bait.COCKROACH, bait.getCockroach())
+    creatureFactory.createBait(bird.baits, bait.bait.CORN, bait.getCorn())
+    creatureFactory.createBait(bird.baits, bait.bait.CRICKET, bait.getCricket())
+    creatureFactory.createBait(bird.baits, bait.bait.GRASSHOPPER, bait.getGrasshopper())
+    creatureFactory.createBait(bird.baits, bait.bait.WORM, bait.getWorm())
 end
 
 --- **Init Trap**
 ---@type void
 local function initTrap()
-    creatureFactory.createTrap(bird, trap.trap.TRAP_STICK, trap.getTrapStick())
+    creatureFactory.createTrap(bird.traps, trap.trap.TRAP_STICK, trap.getTrapStick())
 end
 
 --- **Init Zone**
 ---@type void
 local function initZone()
-    creatureFactory.createZone(bird, zone.zone.DEEP_FOREST, zone.getDeepForest())
-    creatureFactory.createZone(bird, zone.zone.FARM_LAND, zone.getFarmLand())
-    creatureFactory.createZone(bird, zone.zone.FOREST, zone.getForest())
-    creatureFactory.createZone(bird, zone.zone.TOWN_ZONE, zone.getTownZone())
-    creatureFactory.createZone(bird, zone.zone.TRAILER_PARK, zone.getTrailerPark())
-    creatureFactory.createZone(bird, zone.zone.VEGETATION, zone.getVegetation())
+    creatureFactory.createZone(bird.zone, zone.zone.DEEP_FOREST, zone.getDeepForest())
+    creatureFactory.createZone(bird.zone, zone.zone.FARM_LAND, zone.getFarmLand())
+    creatureFactory.createZone(bird.zone, zone.zone.FOREST, zone.getForest())
+    creatureFactory.createZone(bird.zone, zone.zone.TOWN_ZONE, zone.getTownZone())
+    creatureFactory.createZone(bird.zone, zone.zone.TRAILER_PARK, zone.getTrailerPark())
+    creatureFactory.createZone(bird.zone, zone.zone.VEGETATION, zone.getVegetation())
 end
 
 --- **Init**
@@ -214,8 +218,9 @@ local function init()
     setBaitMultiplier(multiplierPrey)
     setTrapMultiplier(multiplierPrey)
     setZoneMultiplier(multiplierPrey)
-    setSizeAnimalMultiplier(multiplierPreySize)
+    setMultiplierPreySize(multiplierPreySize)
 
+    --                  ** Init bait/trap/zone **
     initBait()
     initTrap()
     initZone()
@@ -223,8 +228,9 @@ end
 
 ---**Get Bird**
 ---@return table Bird
-function getBird()
+function Bird.getBird()
     init()
     return bird
 end
 
+return Bird
